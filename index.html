@@ -80,7 +80,10 @@
         src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
 
     <script>
-        var scroll = new SmoothScroll('a[href*="#"]', {
+        var scroll = new SmoothScroll('a[href*="#bazinga"]', {
+            speed: 500
+        });
+        var scroll1 = new SmoothScroll('a[href*="#hero"]', {
             speed: 500
         });
     </script>
@@ -327,7 +330,7 @@
                                     </p>
                                     </li>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="Section2 ">
+                                <div role="tabpanel" class="tab-pane fade" id="Section2">
                                     <h3>Website/Application Development - Rules & Regulation</h3>
                                     <p>
                                     <ul>
@@ -509,7 +512,7 @@
 
 
     <div id="preloader"></div>
-    <a data-scroll href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <a data-scroll href="#hero" class="back-to-top d-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-up"></i></a>
 
     <!-- Vendor JS Files -->
