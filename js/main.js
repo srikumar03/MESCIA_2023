@@ -260,3 +260,98 @@
 })()
 
 
+
+function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+const noFunButton = document.getElementById("no-fun");
+noFunButton.addEventListener("click", function (e) {
+  document.body.classList.remove("fun");
+
+  if (window.confetti) {
+    const duration = 250;
+    const animationEnd = Date.now() + duration;
+
+    (function frame() {
+      const timeLeft = animationEnd - Date.now();
+
+      window.confetti({
+        particleCount: 10,
+        startVelocity: 15,
+        ticks: Math.max(200, 500 * (timeLeft / duration)),
+        gravity: randomInRange(0.5, 2),
+        angle: 270,
+        spread: 180,
+        origin: {
+          x: Math.random(),
+          y: 0
+        },
+        colors: ["#f44", "#f00", "#f22"],
+        shapes: ["circle"],
+        disableForReducedMotion: true,
+        useWorker: true
+      });
+
+      if (timeLeft > 0) {
+        requestAnimationFrame(frame);
+      }
+    })();
+  }
+});
+
+const funButton = document.getElementById("fun");
+funButton.addEventListener("click", function (e) {
+  document.body.classList.add("fun");
+
+  if (window.confetti) {
+    console.log("🎉");
+    const count = 150;
+    // fire the confetti to the center of the window
+    const dx = window.innerWidth / 2 - e.clientX;
+    const dy = e.clientY - window.innerHeight / 2;
+    let theta = Math.atan2(dy, dx); // range (-PI, PI]
+    theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+    if (theta < 0) theta = 360 + theta; // range [0, 360)
+    const defaults = {
+      angle: theta,
+      origin: {
+        y: e.clientY / window.innerHeight,
+        x: e.clientX / window.innerWidth
+      },
+      useWorker: true,
+      disableForReducedMotion: true
+    };
+
+    function fire(particleRatio, opts) {
+      confetti(
+        Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(count * particleRatio)
+        })
+      );
+    }
+
+    fire(0.25, {
+      spread: 26,
+      startVelocity: 55
+    });
+    fire(0.2, {
+      spread: 60
+    });
+    fire(0.35, {
+      spread: 100,
+      decay: 0.91
+    });
+    fire(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92
+    });
+    fire(0.1, {
+      spread: 120,
+      startVelocity: 45
+    });
+  }
+});
+
+
